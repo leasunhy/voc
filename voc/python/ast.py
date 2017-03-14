@@ -972,8 +972,27 @@ class Visitor(ast.NodeVisitor):
                 ),
             )
         else:
+            if isinstance(node.op, ast.Add):
+                self.visit(node.left)
+                self.visit(node.right)
+                self.context.add_opcodes(
+                    JavaOpcodes.INVOKESTATIC(
+                        'org/python/types/Object',
+                        'add',
+                        args=[
+                            'Lorg/python/Object;',
+                            'Lorg/python/Object;',
+                        ],
+                        returns='Lorg/python/Object;'
+                    )
+                )
+
+                return
+
+            # original code
             self.visit(node.left)
             self.visit(node.right)
+
             self.context.add_opcodes(
                 JavaOpcodes.INVOKEINTERFACE(
                     'org/python/Object',

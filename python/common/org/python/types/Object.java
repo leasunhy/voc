@@ -750,6 +750,34 @@ public class Object extends java.lang.RuntimeException implements org.python.Obj
         throw new org.python.exceptions.AttributeError(this, "__ror__");
     }
 
+    public static org.python.Object add(org.python.Object lhs, org.python.Object rhs) {
+        org.python.Object ret = org.python.types.NotImplementedType.NOT_IMPLEMENTED;
+
+        boolean subclassCase = lhs.type() != rhs.type()
+                && ((org.python.types.Bool)org.Python.isinstance(rhs, lhs.type())).value;
+
+        if (subclassCase) {
+            try {
+                if ((ret = rhs.__radd__(lhs)) != org.python.types.NotImplementedType.NOT_IMPLEMENTED)
+                    return ret;
+            }
+            catch (org.python.exceptions.AttributeError e) {}
+        }
+
+        if ((ret = lhs.__add__(rhs)) != org.python.types.NotImplementedType.NOT_IMPLEMENTED)
+            return ret;
+
+        if (!subclassCase) {
+            try {
+                if ((ret = rhs.__radd__(lhs)) != org.python.types.NotImplementedType.NOT_IMPLEMENTED)
+                    return ret;
+            }
+            catch (org.python.exceptions.AttributeError e) {}
+        }
+
+        throw new org.python.exceptions.TypeError("unsupported operand type(s) for +: '" + lhs.typeName() + "' and '" + rhs.typeName() + "'");
+    }
+
     @org.python.Method(
             __doc__ = "",
             args = {"other"}
