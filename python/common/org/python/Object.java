@@ -149,7 +149,7 @@ public interface Object extends Comparable {
     public org.python.Object __rfloordiv__(org.python.Object other);
     public org.python.Object __rmod__(org.python.Object other);
     public org.python.Object __rdivmod__(org.python.Object other);
-    public org.python.Object __rpow__(org.python.Object other);
+    public org.python.Object __rpow__(org.python.Object other, org.python.Object modulus);
     public org.python.Object __rlshift__(org.python.Object other);
     public org.python.Object __rrshift__(org.python.Object other);
     public org.python.Object __rand__(org.python.Object other);

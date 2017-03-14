@@ -706,7 +706,7 @@ public class Object extends java.lang.RuntimeException implements org.python.Obj
             __doc__ = "",
             args = {"other"}
     )
-    public org.python.Object __rpow__(org.python.Object other) {
+    public org.python.Object __rpow__(org.python.Object other, org.python.Object modulus) {
         throw new org.python.exceptions.AttributeError(this, "__rpow__");
     }
 
